@@ -1,0 +1,4 @@
+D:\SOFTWARE\jetbrainTool\apps\CLion\ch-0\231.9011.31\bin\cmake\win\x64\bin\cmake.exe -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=D:/SOFTWARE/jetbrainTool/apps/CLion/ch-0/231.9011.31/bin/ninja/win/x64/ninja.exe -G Ninja -S D:\zjcfile\weblearn\OTHER\RFID\testcodefiles\testcode\clionproject -B D:\zjcfile\weblearn\OTHER\RFID\testcodefiles\testcode\clionproject\cmake-build-debug
+-- Configuring done
+-- Generating done
+-- Build files have been written to: D:/zjcfile/weblearn/OTHER/RFID/testcodefiles/testcode/clionproject/cmake-build-debug
