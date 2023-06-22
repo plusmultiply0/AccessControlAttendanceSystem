@@ -126,7 +126,7 @@ int cpppostrequest(int usriddata){
     }
 
     // 设置请求URL
-    std::string url = "http://127.0.0.1:5000/clockin";
+    std::string url = "http://192.168.2.5:5000/clockin";
 
     // 创建JSON对象并设置数据
     json data;

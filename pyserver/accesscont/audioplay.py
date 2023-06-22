@@ -1,16 +1,3 @@
-# -*- coding:utf-8 -*-
-#
-#   author: iflytek
-#
-#  本demo测试时运行的环境为：Windows + Python3.7
-#  本demo测试成功运行时所安装的第三方库及其版本如下：
-#   cffi==1.12.3
-#   gevent==1.4.0
-#   greenlet==0.4.15
-#   pycparser==2.19
-#   six==1.12.0
-#   websocket==0.2.1
-#   websocket-client==0.56.0
 #   合成小语种需要传输小语种文本、使用小语种发音人vcn、tte=unicode以及修改文本编码方式
 #  错误码链接：https://www.xfyun.cn/document/error-code （code返回错误码时必看）
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
@@ -176,4 +163,3 @@ def play_mp3(param):
     pygame.mixer.init()
     pygame.mixer.music.load(file_path)
     pygame.mixer.music.play()
-    # time.sleep(3)

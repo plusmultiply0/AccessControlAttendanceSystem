@@ -10,6 +10,8 @@
 
 ## 如何使用本项目
 
+### 服务器端部分
+
 1. 使用`git clone`下载项目代码
 2. 进入pyserver文件夹，在 python3 环境下，创建python虚拟环境 rfidvenv`python -m venv rfidvenv`，激活虚拟环境 `rfidvenv\scripts\activate`
 3. 在虚拟环境下，安装依赖库 `pip install -r requirements.txt`
@@ -22,7 +24,17 @@ APISecret=xxx
 APIKey=xxx
 ```
 
-5. 在前面的虚拟环境中，先运行`flask initdb` 初始化数据库，再运行`flask build` 填充预置数据，最后运行`flask run`，在 http://127.0.0.1:5000/ 查看项目（若出现重复数据，运行`flask initdb --drop` ，再运行`flask build`）。
+5. 在前面的虚拟环境中，先运行`flask initdb` 初始化数据库，再运行`flask build` 填充预置数据，最后运行`flask run --host=0.0.0.0`，在 http://127.0.0.1:5000/ 查看项目。
+
+### 客户端部分
+
+1. 使用clion打开clionproject
+2. 插上虚拟串口USB转232和13.56M的读卡器，点击运行
+
+## 注意事项
+
+- 需要先运行服务器端再运行客户端代码
+- 运行时，需要修改curl访问服务器的地址，改成相应的运行地址或内网地址
 
 ## 参考资料
 

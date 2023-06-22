@@ -1,5 +1,5 @@
 from accesscont import app
-from flask import render_template, jsonify, request,send_file
+from flask import jsonify, request
 from accesscont import db
 from accesscont.models import userinfo,attendancetime
 import time
@@ -11,7 +11,7 @@ from accesscont import audioplay
 
 @app.route('/')
 def index():
-    return 'hello world233344444!'
+    return 'hello zjc233344444!'
 
 # 定义键函数，返回字典中的 "name" 值
 def get_name(item):
@@ -20,13 +20,13 @@ def get_name(item):
 @app.route('/clockin', methods=["POST"])
 def clockin():
     sth = request.json
-    # print(sth)
-    # username = sth['username']
+
     userid = sth['userid']
     # 先判断是否是已录入用户
     res1 = userinfo.query.filter(userinfo.userid==userid).first()
     if not res1:
         errmsg = "非法用户，无权进入！"
+        # 调用语音函数
         audioplay.generateaudio(errmsg,1)
         audioplay.play_mp3(1)
         return jsonify({"msg":errmsg,"tag":0})
@@ -43,7 +43,7 @@ def clockin():
             m1 = attendancetime(username=res1.username,userid=res1.userid,status=0, toworktimestamp=totime,createddate=year+'-'+month+'-'+day)
             db.session.add(m1)
             db.session.commit()
-            toworkmsg = "上班打卡成功！"+"打卡人："+res1.username+"员工id为："+str(userid)
+            toworkmsg = "上班打卡成功！"+"打卡人："+res1.username+"员工ID为："+str(userid)
             audioplay.generateaudio(toworkmsg,2)
             audioplay.play_mp3(2)
             return jsonify({"msg":"上班打卡成功！","tag":1,"user":res1.username,"userid":res1.userid})
@@ -111,4 +111,3 @@ def clockin():
             audioplay.play_mp3(3)
             # 调用语音函数，进行播报
             return jsonify({"msg": "下班打卡成功！","attendtime":attendtime,"tag":2,"monthclockintime":actualvalue,"user":res1.username,"userid":res1.userid})
-    # return jsonify()
