@@ -54,11 +54,11 @@ bool SerialPort::InitPort(UINT portNo /*= 1*/, UINT baud /*= CBR_9600*/, char pa
 	if (bIsSuccess)
 	{
 		bIsSuccess = SetCommTimeouts(m_hComm, &CommTimeouts);
-        std::cout<<"status0:"<<' '<<bIsSuccess<<std::endl;
+//        std::cout<<"status0:"<<' '<<bIsSuccess<<std::endl;
 	}
 
 	DCB  dcb;
-    std::cout<<"status1:"<<' '<<bIsSuccess<<std::endl;
+//    std::cout<<"status1:"<<' '<<bIsSuccess<<std::endl;
 	if (bIsSuccess)
 	{
 		 //将ANSI字符串转换为UNICODE字符串  
@@ -77,7 +77,7 @@ bool SerialPort::InitPort(UINT portNo /*= 1*/, UINT baud /*= CBR_9600*/, char pa
 		// 释放内存空间
 		delete[] pwText;
 	}
-    std::cout<<"status2:"<<' '<<bIsSuccess<<std::endl;
+//    std::cout<<"status2:"<<' '<<bIsSuccess<<std::endl;
 	if (bIsSuccess)
 	{
 		// 使用DCB参数配置串口状态 
@@ -87,7 +87,7 @@ bool SerialPort::InitPort(UINT portNo /*= 1*/, UINT baud /*= CBR_9600*/, char pa
 	PurgeComm(m_hComm, PURGE_RXCLEAR | PURGE_TXCLEAR | PURGE_RXABORT | PURGE_TXABORT);
 	// 离开临界段 
 	LeaveCriticalSection(&m_csCommunicationSync);
-    std::cout<<"status3:"<<' '<<bIsSuccess<<std::endl;
+//    std::cout<<"status3:"<<' '<<bIsSuccess<<std::endl;
 	return bIsSuccess == TRUE;
 }
 bool SerialPort::InitPort(UINT portNo, const LPDCB& plDCB)
