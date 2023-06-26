@@ -126,7 +126,7 @@ int cpppostrequest(int usriddata){
     }
 
     // 设置请求URL
-    std::string url = "http://192.168.2.5:5000/clockin";
+    std::string url = "http://192.168.2.6:5000/clockin";
 
     // 创建JSON对象并设置数据
     json data;
@@ -342,12 +342,17 @@ int main(int argc, _TCHAR* argv[])
             if (block > 0)
             {
                 CheckSumOut(Cmd, Cmd[1]);
-//                Sleep(1000);
+                Sleep(1000);
                 mySerialPort.WriteData(Cmd, Cmd[1]);  //通过串口发送读数据块指令给读写器
+                if(!mySerialPort.WriteData(Cmd, Cmd[1])){
+                    mySerialPort.InitPort(3);
+                    mySerialPort.WriteData(Cmd, Cmd[1]);
+//                    cout<<"data is:"<<mySerialPort.WriteData(Cmd, Cmd[1])<<endl;
+                }
 //                cout<<"data is:"<<mySerialPort.WriteData(Cmd, Cmd[1])<<endl;
                 Sleep(1000); // 延时200毫秒等待读写器返回数据，延时太小可能无法接收完整的数据包
                 len = mySerialPort.GetBytesInCOM(); //获取串口缓冲区中字节数
-
+//                cout<<"len:"<<len<<endl;
                 if (len >= 8)
                 {
                     readbytes = 0;

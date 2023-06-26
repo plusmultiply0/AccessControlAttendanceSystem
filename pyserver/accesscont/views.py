@@ -66,13 +66,18 @@ def clockin():
                 func.extract('month', attendancetime.createddate) == current_month,
                 attendancetime.createddate >= start_date,
                 attendancetime.createddate < end_date,
-                userinfo.userid == userid
+                # userinfo.userid == userid
             ).all()
+            userres = []
+            for x in results:
+                # print(x.userid,x.username,x.createddate)
+                if x.userid == userid:
+                    userres.append(x)
             # 上面统计本人本月出勤记录
             daytotaltime = 0
             resultsnew = []
             analyres = []
-            for x in results:
+            for x in userres:
                 newdict = { "date":x.createddate,"clockintime":x.offworktimestamp-x.toworktimestamp}
                 # print("date:",x.createddate," toworktime",x.toworktimestamp," offworktime",x.offworktimestamp)
                 resultsnew.append(newdict)
