@@ -52,6 +52,10 @@ APIKey=xxx
   - pip uninstall websocket-client
   - pip install websocket-client
 
+## 赞赏与支持
+
+![](other/rewardqrcode.png)
+
 ## 参考资料
 
 - https://github.com/plusmultiply0/bookmanagesystem

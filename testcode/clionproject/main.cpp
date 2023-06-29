@@ -12,10 +12,6 @@ using json = nlohmann::json;
 
 using namespace std;
 
-UCHAR  CmdReadId[8] = { 0x01, 0x08, 0xA1, 0x20, 0x00, 0x01, 0x00, 0x76 };
-
-UCHAR  CmdReadBlock[8] = { 0x01, 0x08, 0xA3, 0x20, 0x00, 0x01, 0x00, 0x00 }; //01 08 A3 20 01 01 00 75
-
 UCHAR  Cmd[23] = { 0x01, 0x17, 0xA4, 0x20, 0x00, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
 UCHAR  Cmdwrite[23] = { 0x01, 0x17, 0xA4, 0x20, 0x00, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
 
@@ -91,7 +87,6 @@ void HexStrToByte(const UCHAR* source,  UCHAR* dest, int sourceLen)
 int UcharUsrIdtoInt(UCHAR temp[]){
     char s = (char)temp[1];
     int usrdata = s - '0';
-//    cout<<"usr id is:"<<usrdata<<endl;
     return usrdata;
 }
 //将读取到的块数据（总出勤时间）转换为整数
@@ -124,33 +119,25 @@ int cpppostrequest(int usriddata){
         std::cerr << "Failed to initialize Curl" << std::endl;
         return 1;
     }
-
     // 设置请求URL
-    std::string url = "http://192.168.2.6:5000/clockin";
-
+    std::string url = "http://192.168.2.5:5000/clockin";
     // 创建JSON对象并设置数据
     json data;
     data["userid"] = usriddata;
-
     // 将JSON数据转换为字符串
     std::string jsonData = data.dump();
-
     // 设置Content-Type为JSON
     struct curl_slist* headers = NULL;
     headers = curl_slist_append(headers, "Content-Type: application/json");
     curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);
-
     // 设置Curl选项
     curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
     curl_easy_setopt(curl, CURLOPT_POSTFIELDS, jsonData.c_str());
     curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, WriteCallback);
-
     // 创建响应存储变量
     std::string response;
-
     // 传递response变量作为回调函数的参数
     curl_easy_setopt(curl, CURLOPT_WRITEDATA, &response);
-
     // 发送请求并等待响应
     CURLcode res = curl_easy_perform(curl);
     int monthclockintime = 0;
@@ -160,14 +147,9 @@ int cpppostrequest(int usriddata){
         // 提取响应内容
         long statusCode;
         curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &statusCode);
-//        std::cout << "Response code: " << statusCode << std::endl;
-//        std::cout << "Response body: " << response << std::endl;
-
         // 处理响应数据
         json jsonResponse = json::parse(response);
-        // ...
         std::cout << "Response json: " << jsonResponse << std::endl;
-
         if(!jsonResponse["tag"].get<int>()){
             cout<<endl<<"提示信息：非法用户，无权进入！"<<endl;
         }
@@ -177,7 +159,6 @@ int cpppostrequest(int usriddata){
         if(jsonResponse["tag"].get<int>()==2){
             cout<<endl<<"提示信息：下班打卡成功！"<<endl;
         }
-
         if (jsonResponse.contains("monthclockintime")){
             monthclockintime = jsonResponse["monthclockintime"].get<int>();
         }
@@ -349,7 +330,6 @@ int main(int argc, _TCHAR* argv[])
                     mySerialPort.WriteData(Cmd, Cmd[1]);
 //                    cout<<"data is:"<<mySerialPort.WriteData(Cmd, Cmd[1])<<endl;
                 }
-//                cout<<"data is:"<<mySerialPort.WriteData(Cmd, Cmd[1])<<endl;
                 Sleep(1000); // 延时200毫秒等待读写器返回数据，延时太小可能无法接收完整的数据包
                 len = mySerialPort.GetBytesInCOM(); //获取串口缓冲区中字节数
 //                cout<<"len:"<<len<<endl;
@@ -362,7 +342,6 @@ int main(int argc, _TCHAR* argv[])
                         if (mySerialPort.ReadChar(inbyte) == true)
                         {
                             revdata[readbytes] = inbyte;
-//                            cout<<"inbyte data:"<<inbyte<<endl;
                             readbytes++;
                         }
                     } while (--len);

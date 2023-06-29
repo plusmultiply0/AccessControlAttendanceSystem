@@ -24,19 +24,16 @@ def initdb(drop):
 def build():
     """Generate prepared messages."""
     click.echo('Working...')
-
     # 预先录入员工信息
     m = userinfo(username='zjc',userid=1)
     db.session.add(m)
     m = userinfo(username='张三', userid=3)
     db.session.add(m)
-
     # 预先录入考勤信息
     m = attendancetime(username='zjc',status=1,userid=1,toworktimestamp=1686186000,offworktimestamp=1686196800,createddate='2023-06-08')
     db.session.add(m)
     m = attendancetime(username='zjc', status=1,userid=1,toworktimestamp=1686204000, offworktimestamp=1686216600,
                        createddate='2023-06-08')
     db.session.add(m)
-
     db.session.commit()
     click.echo('ok!')

@@ -55,7 +55,6 @@ def clockin():
             # 统计本次出勤时间
             toworktime = int(res2.toworktimestamp)
             attendtime = res2.offworktimestamp-toworktime
-
             # 统计一个自然月出勤时间
             current_year = datetime.date.today().year
             current_month = datetime.date.today().month
