@@ -13,7 +13,6 @@ from accesscont import audioplay
 def index():
     return 'hello zjc233344444!'
 
-# 定义键函数，返回字典中的 "name" 值
 def get_name(item):
     return item["date"]
 
@@ -105,13 +104,11 @@ def clockin():
                 timelens = timelens+1
             actualvalue = int(timelens*math.pow(10,timelens)+monthtotaltime)
             # 设计第一位为总出勤时间的位数，第一位后为实际出勤时间
-            # for x in analyres:
-            #     print("date:",x)
             hour = int(attendtime/3600)
             minute = int((attendtime%3600)/60)
             second = int((attendtime%3600)%60)
             offworkmsg = "下班打卡成功！"+"本次出勤时间为："+str(hour)+"小时，"+str(minute)+"分钟，"+str(second)+"秒。"
             audioplay.generateaudio(offworkmsg,3)
             audioplay.play_mp3(3)
-            # 调用语音函数，进行播报
+            # 调用语音函数
             return jsonify({"msg": "下班打卡成功！","attendtime":attendtime,"tag":2,"monthclockintime":actualvalue,"user":res1.username,"userid":res1.userid})

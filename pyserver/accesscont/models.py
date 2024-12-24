@@ -15,6 +15,6 @@ class attendancetime(db.Model):
     status = db.Column(db.Integer)
     toworktimestamp = db.Column(db.Integer)
     offworktimestamp = db.Column(db.Integer)
-    # 设定日期，便于统计一个自然月内信息
+    # 设定日期，统计一个自然月内信息
     createddate = db.Column(db.Date)
 

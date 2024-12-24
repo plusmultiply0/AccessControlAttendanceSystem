@@ -12,7 +12,7 @@
   - 打卡时，若有上班打卡记录，读取下班时间以及统计出勤时间并语音播报
   - 识别非录入员工，显示“无权进入”并语音提示
 - 一天可多次上下班，并能统计有效出勤时间。
-- 语音播报上下班打卡信息和非法用户信息
+- 语音播报上下班打卡信息和非法用户的信息
 
 ## 如何使用本项目
 
@@ -49,10 +49,10 @@ APIKey=xxx
   - 虚拟环境下依次输入下列命令即可
   - pip uninstall websocket
   - pip uninstall websocket-client
-  - pip install websocket-client
 
 ## 赞赏与支持
 
+如果对你有帮助，请支持一下，谢谢~
 ![](other/rewardqrcode.png)
 
 ## 参考资料

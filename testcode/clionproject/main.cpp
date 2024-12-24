@@ -8,7 +8,7 @@
 #include <curl/curl.h>
 #include "json.hpp"
 
-using json = nlohmann::json;
+using json = json;
 
 using namespace std;
 
@@ -43,7 +43,6 @@ bool CheckSumIn(UCHAR *buf, UCHAR len)
 	return false;
 }
 
-//字节流转换为十六进制字符串的另一种实现方式
 void Hex2Str(const UCHAR *sSrc, UCHAR *sDest, int nSrcLen)
 {
 	int  i;
@@ -100,7 +99,6 @@ int UcharUsrClockTimetoInt(UCHAR temp[]){
 //      一个月小于2592000秒，位数小于等于7位
     }
     string str = string(stemp);
-//    cout<<"str:"<<str<<endl;
     int usrdata = stoi(str);
     cout<<"usr month clock time is:"<<usrdata<<endl;
     return usrdata;
@@ -134,7 +132,6 @@ int cpppostrequest(int usriddata){
     curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
     curl_easy_setopt(curl, CURLOPT_POSTFIELDS, jsonData.c_str());
     curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, WriteCallback);
-    // 创建响应存储变量
     std::string response;
     // 传递response变量作为回调函数的参数
     curl_easy_setopt(curl, CURLOPT_WRITEDATA, &response);
@@ -230,7 +227,7 @@ void writemonthtimetocard(int monthclockintime,SerialPort mySerialPort){
                 cout << "1. 检查IC卡是否放置在读写器的感应区内." << endl;
                 cout << "2. IC卡对应扇区密码与读写器读写密码不一致." << endl;
                 cout << "3. 输入的数据块值超过IC卡的最大数据块数值，比如S50卡有63个数据块."  << endl;
-                cout << "4. 密码控制块不可以读或写." << endl;
+                //cout << "4. 密码控制块不可以读或写." << endl;
             }
         }
     }
@@ -278,7 +275,6 @@ int main(int argc, _TCHAR* argv[])
 
         while (true)
         {
-//            cin >> inbyte;
             inbyte = '2';
             block = -1;
             status = -1;
@@ -302,7 +298,6 @@ int main(int argc, _TCHAR* argv[])
                     }
                     break;
                 case '2':
-//                    cout << "请将IC卡放读写器感应区内，输入要读的块号（比如：1，2，4，5，6，8等）按回车开始读卡……" << endl;
                     cout<<endl<<"程序会等待5秒，请在5秒内放上卡！"<<endl;
                     Sleep(5000);
                     cout<<endl<<"等待结束，开始读卡！"<<endl<<endl;
@@ -346,14 +341,8 @@ int main(int argc, _TCHAR* argv[])
                         }
                     } while (--len);
 
-//                    UCHAR blockdata1[16];
-//                    UCHAR temp1[33];
-//                    for (i = 0; i < 16; i++)
-//                    {
-//                        blockdata1[i] = revdata[12 + i]; //复制数据到数组
-//                    }
-//                    Hex2Str(&blockdata1[0], &temp1[0], 16); // 数据块数据转换为字符
-//                    cout << "读数据块成功，数据块" << block << "数据为：" << temp1 << endl << endl;
+                        UCHAR blockdata1[16];
+                        UCHAR temp1[33];
 
                     if ((revdata[0] = 0x01) && (revdata[1] == 8) && (revdata[1] == readbytes) && (revdata[2] == 0x0A4) && (revdata[3] = 0x20)) //判断是否为写数据返回的数据包
                     {
@@ -391,13 +380,11 @@ int main(int argc, _TCHAR* argv[])
 
                                 cout << "读数据块成功，14扇区的数据块" << block << "数据为：" << temp << endl << endl;
 
-                                //                              读取id
+                                //读取id
                                 int usrd = UcharUsrIdtoInt(temp);
                                 int monthclockintime = cpppostrequest(usrd);
 
-//                                cout<<"monthclockintime:"<<monthclockintime<<endl;
-//                              读取月出勤时间
-//                                int usrmonthtime = UcharUsrClockTimetoInt(temp);
+//                              cout<<"monthclockintime:"<<monthclockintime<<endl;
 //                              下班时写数据到卡中
                                 if(monthclockintime){
                                     writemonthtimetocard(monthclockintime,mySerialPort);
