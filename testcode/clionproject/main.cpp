@@ -262,7 +262,7 @@ int main(int argc, _TCHAR* argv[])
     INT block;
 
 	SerialPort mySerialPort;
-    system("chcp 65001");
+//   system("chcp 65001");
 
     if (!mySerialPort.InitPort(3)) //初始化COM3，并打开COM3
     {
@@ -326,7 +326,7 @@ int main(int argc, _TCHAR* argv[])
                 Sleep(1000);
                 mySerialPort.WriteData(Cmd, Cmd[1]);  //通过串口发送读数据块指令给读写器
                 if(!mySerialPort.WriteData(Cmd, Cmd[1])){
-                    mySerialPort.InitPort(3);
+//                  mySerialPort.InitPort(3);
                     mySerialPort.WriteData(Cmd, Cmd[1]);
 //                    cout<<"data is:"<<mySerialPort.WriteData(Cmd, Cmd[1])<<endl;
                 }
@@ -408,10 +408,10 @@ int main(int argc, _TCHAR* argv[])
                             else //读数据块失败
                             {
                                 cout << "读,写数据块失败,失败原因如下：" << endl;
-//                                cout << "1. 检查IC卡是否放置在读写器的感应区内." << endl;
-//                                cout << "2. IC卡对应扇区密码与读写器读写密码不一致." << endl;
-//                                cout << "3. 输入的数据块值超过IC卡的最大数据块数值，比如S50卡有63个数据块." << endl;
-//                                cout << "4. 密码控制块不可以读或写." << endl;
+                                cout << "1. 检查IC卡是否放置在读写器的感应区内." << endl;
+                                cout << "2. IC卡对应扇区密码与读写器读写密码不一致." << endl;
+                                cout << "3. 输入的数据块值超过IC卡的最大数据块数值，比如S50卡有63个数据块." << endl;
+                                cout << "4. 密码控制块不可以读或写." << endl;
                                 cout<<"未探测到卡片，请重试！"<<endl;
                                 cout<<"程序会暂停10s，等待再次读卡！"<<endl<<endl;
                                 Sleep(10000);

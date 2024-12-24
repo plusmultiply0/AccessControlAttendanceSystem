@@ -15,4 +15,4 @@ link_directories(${CURL_LIBRARY_DIRS})
 
 add_executable(clionproject main.cpp SerialPort.cpp stdafx.cpp)
 
-target_link_libraries(clionproject curl)
+target_link_libraries(clionproject Curl)
