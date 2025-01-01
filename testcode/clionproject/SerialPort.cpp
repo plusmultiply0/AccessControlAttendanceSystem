@@ -40,10 +40,10 @@ bool SerialPort::InitPort(UINT portNo /*= 1*/, UINT baud /*= CBR_9600*/, char pa
 	/** 在此可以设置输入输出的缓冲区大小,如果不设置,则系统会设置默认值.
 	*  自己设置缓冲区大小时,要注意设置稍大一些,避免缓冲区溢出
 	*/
-	if (bIsSuccess )
-	{
-	bIsSuccess = SetupComm(m_hComm,10,10);
-	}
+	// if (bIsSuccess )
+	// {
+	// bIsSuccess = SetupComm(m_hComm,10,10);
+	// }
 	/** 设置串口的超时时间,均设为0,表示不使用超时限制 */
 	COMMTIMEOUTS  CommTimeouts;
 	CommTimeouts.ReadIntervalTimeout = 0;
@@ -73,7 +73,7 @@ bool SerialPort::InitPort(UINT portNo /*= 1*/, UINT baud /*= CBR_9600*/, char pa
 		bIsSuccess = GetCommState(m_hComm, &dcb) && BuildCommDCB(m_hComm, &dcb);
 		//        std::cout<<"two status:"<<GetCommState(m_hComm, &dcb)<<' '<<BuildCommDCB(reinterpret_cast<LPCSTR>(pwText), &dcb)<<std::endl;
 		// 开启RTS flow控制
-		dcb.fRtsControl = RTS_CONTROL_DISABLE;
+		//dcb.fRtsControl = RTS_CONTROL_DISABLE;
 		// 释放内存空间
 		delete[] pwText;
 	}

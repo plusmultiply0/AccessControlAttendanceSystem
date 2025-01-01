@@ -8,7 +8,7 @@
 #include <curl/curl.h>
 #include "json.hpp"
 
-using json = json;
+using json = nlohmann::json;
 
 using namespace std;
 
@@ -259,7 +259,7 @@ int main(int argc, _TCHAR* argv[])
     INT block;
 
 	SerialPort mySerialPort;
-//   system("chcp 65001");
+    system("chcp 65001");
 
     if (!mySerialPort.InitPort(3)) //初始化COM3，并打开COM3
     {
@@ -270,9 +270,6 @@ int main(int argc, _TCHAR* argv[])
     else
     {
         cout << "初始化成功!" << endl;
-//        cout << "输入 “1” 按回车键写数据块" << endl;
-//        cout << "输入 “2” 按回车键读数据块" << endl;
-
         while (true)
         {
             inbyte = '2';
@@ -383,8 +380,6 @@ int main(int argc, _TCHAR* argv[])
                                 //读取id
                                 int usrd = UcharUsrIdtoInt(temp);
                                 int monthclockintime = cpppostrequest(usrd);
-
-//                              cout<<"monthclockintime:"<<monthclockintime<<endl;
 //                              下班时写数据到卡中
                                 if(monthclockintime){
                                     writemonthtimetocard(monthclockintime,mySerialPort);
